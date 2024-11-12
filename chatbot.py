@@ -17,7 +17,7 @@ chat = ChatOpenAI(api_key=openai_key, model="gpt-4")
 parser = StrOutputParser()
 
 # MongoDB configuration
-mongo_client = MongoClient(os.getenv("MONGO_URI")))
+mongo_client = MongoClient(os.getenv("MONGO_URI"))
 db = mongo_client['chat_history_db']
 collection = db['user_chat']
 
