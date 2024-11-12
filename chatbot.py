@@ -18,8 +18,8 @@ parser = StrOutputParser()
 
 # MongoDB configuration
 mongo_client = MongoClient(os.getenv("MONGO_URI"))
-db = mongo_client['chat_history_db']
-collection = db['user_chat']
+db = mongo_client['TrueDar-ai']
+collection = db['user_chats']
 
 # Function to initialize a new session if it does not exist
 def initialize_session(session_id):
