@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAE Property Finder Chatbot</title>
+    <!-- Correct static file reference for CSS -->
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <h1>UAE Property Finder Chatbot</h1>
+        <div id="chatbox" class="chatbox">
+            <div id="messages" class="messages"></div>
+        </div>
+
+        <form id="chatForm">
+            <input type="text" id="user_input" name="user_input" placeholder="Ask about properties in UAE..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- Correct static file reference for JavaScript -->
+    <script >
+
+        // Handle form submission
+document.getElementById("chatForm").addEventListener("submit", async function(event) {
+    event.preventDefault(); // Prevent the form from refreshing the page
+
+    // Get the user input
+    let user_input = document.getElementById("user_input").value;
+
+    // Send the user input to the backend via POST request
+    let response = await fetch("/chatbot/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-SECRET-KEY': 'I_am_Admin', // Replace with your actual secret key
+        },
+        body: JSON.stringify({
+            "user_input": user_input // Correctly formatted JSON
+        })
+    });
+
+    // Parse the response as JSON
+    let result = await response.json();
+
+    // Get the chatbot's response
+    let botResponse = result.response;
+
+    // Display the chatbot's response in the chatbox
+    let messages = document.getElementById("messages");
+    let userMessage = document.createElement("p");
+    let botMessage = document.createElement("p");
+
+    userMessage.innerText = "You: " + user_input;
+    botMessage.innerText = "Bot: " + botResponse;
+
+    messages.appendChild(userMessage);
+    messages.appendChild(botMessage);
+
+    // Clear the input field
+    document.getElementById("user_input").value = "";
+});
+
+
+    </script>
+</body>
+</html>
